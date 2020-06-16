@@ -30,7 +30,7 @@ export default function Purses() {
       {Array.isArray(purses) && purses.length > 0 ? (
         <List>
           {purses.map(
-            ({ pursePetname, brandRegKey, issuerPetname, extent }) => (
+            ({ pursePetname, brandRegKey, issuerPetname, extent, currentAmount }) => (
               <ListItem key={pursePetname} value={pursePetname} divider>
                 <ListItemIcon className={classes.icon}>
                   <PurseIcon />
@@ -42,7 +42,7 @@ export default function Purses() {
                       <b>
                         {JSON.stringify(extent)} {issuerPetname}
                       </b>{' '}
-                      {brandRegKey ? <i>({brandRegKey})</i> : ''}
+                      
                     </>
                   }
                 />

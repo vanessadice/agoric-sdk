@@ -27,7 +27,7 @@ export async function makeWallet({
 }) {
   // Create the petname maps so we can dehydrate information sent to
   // the frontend.
-  const { makeMapping } = makeDehydrator();
+  const { makeMapping, dehydrate } = makeDehydrator();
   const purseMapping = makeMapping('purse');
   const brandMapping = makeMapping('brand');
 
@@ -121,16 +121,15 @@ export async function makeWallet({
   }
 
   async function updatePursesState(pursePetname, purse) {
-    const [{ extent }, brand] = await Promise.all([
-      E(purse).getCurrentAmount(),
-      E(purse).getAllegedBrand(),
-    ]);
+    const currentAmount = await E(purse).getCurrentAmount();
+    const { extent, brand } = currentAmount;
     const { issuer } = brandTable.get(brand);
     const issuerNames = issuerToIssuerNames.get(issuer);
     pursesState.set(pursePetname, {
-      ...issuerNames,
+      ...issuerNames, // brandRegKey, issuerPetname
       pursePetname,
       extent,
+      currentAmount: dehydrate(currentAmount),
     });
     pursesStateChangeHandler(getPursesState());
   }
