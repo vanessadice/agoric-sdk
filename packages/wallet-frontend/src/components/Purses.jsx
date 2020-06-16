@@ -46,7 +46,6 @@ export default function Purses() {
           {purses.map(
             ({
               pursePetname,
-              brandRegKey,
               issuerPetname,
               extent,
               currentAmount,
