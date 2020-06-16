@@ -11,20 +11,7 @@ import {
 import PurseIcon from '@material-ui/icons/BusinessCenter';
 
 import { useApplicationContext } from '../contexts/Application';
-
-const noOp = () => {};
-const slotToDisplay = slot => slot;
-// const { unserialize: display } = makeMarshal(noOp, slotToDisplay);
-const display = () => {};
-
-const displayExtent = amount => {
-  const { brand, extent } = display(amount);
-  // TODO: this check should be in boardID terms
-  if (brand.petname === 'zoe invite') {
-    return `${extent} ${brand.petname}`;
-  }
-  return `${JSON.stringify(extent)} ${brand.petname}`;
-};
+import { displayExtent } from '../utils/displayExtent';
 
 const useStyles = makeStyles(theme => ({
   icon: {
